@@ -12,7 +12,7 @@
           </header>
           <div class="card-content">
             <div class="content">
-              <span><h1>0</h1></span>
+              <h2 class="title is-2">0</h2>
             </div>
           </div>
         </div>
@@ -24,7 +24,7 @@
           </header>
           <div class="card-content">
             <div class="content">
-              <span><h1>0</h1></span>
+              <h2 class="title is-2">0</h2>
             </div>
           </div>
         </div>
@@ -36,10 +36,11 @@
         <thead>
           <tr>
             <th>No.</th>
-            <th>Activity</th>
-            <th>In Charge</th>
+            <th>Aktifitas</th>
+            <th>Sub Unit</th>
+            <th>Penanggung Jawab</th>
             <th>Status</th>
-            <th>Action</th>
+            <th>-</th>
           </tr>
         </thead>
         <tbody>
@@ -51,6 +52,7 @@
                 <a href="?p=detail"><i class="fas fa-info-circle"></i></a>
               </span>
             </td>
+            <td>Plan & Budget Control</td>
             <td>Aditya Amirullah</td>
             <td>Open</td>
             <td>  
@@ -76,6 +78,7 @@
                 <a href="?p=detail"><i class="fas fa-info-circle"></i></a>
               </span>
             </td>
+            <td>Performance & War Room</td>
             <td>Harry J. Sopacua</td>
             <td>Open</td>
             <td>  
@@ -99,7 +102,7 @@
     <!-- end of table -->
     <div class="columns">
       <div class="column is-2 is-offset-10">
-        <a class="button is-medium is-link">
+        <a class="button is-medium is-link" href="?p=add">
           <span class="icon">
             <i class="fas fa-plus"></i>
           </span>

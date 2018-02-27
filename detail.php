@@ -5,22 +5,12 @@
       <div class="column">
         <h3 class="title is-3">Pembuatan aplikasi Manajemen Aktifitas BPP Telkom Regional 7</h3>
         <h3 class="subtitle is-5">
-          <span class="green-text"><b>In Charge</b></span>: Aditya Amirullah | <span class="red-text"><b>Deadline</b></span>: 28 Feb 2018
+          <span class="green-text"><b>Penanggung Jawab</b></span>: Aditya Amirullah | <span class="red-text"><b>Batas Waktu</b></span>: 28 Feb 2018
           <span>
             <!-- status -->
-            <!-- <p class="button is-small is-success">                
-              <span class="icon is-small">
-                <i class="fas fa-check"></i>
-              </span>  
-              <span>Closed</span>
-            </p> -->
+            <!-- <p class="button is-small is-success">Closed</p> -->
             <!-- if open -->
-            <p class="button is-small is-danger">                
-              <span class="icon is-small">
-                <i class="fas fa-times"></i>
-              </span>  
-              <span>Open</span>
-            </p>
+            <p class="button is-small is-danger is-outlined">Open</p>
           </span>
         </h3>
       </div>
@@ -31,8 +21,9 @@
         <thead>
           <tr>
             <th>No.</th>
-            <th>Activity</th>
-            <th>Action</th>
+            <th>Progress</th>
+            <th>Penanggung Jawab</th>
+            <th>-</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +31,7 @@
           <tr>
             <td>1.</td>
             <td>Pembuatan aplikasi Manajemen Aktifitas BPP Telkom Regional 7</td>
+            <td>Aditya Amirullah</td>
             <td>
               <a class="button is-danger is-outlined is-small">
                 <span>Delete</span>
