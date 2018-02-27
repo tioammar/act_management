@@ -1,0 +1,20 @@
+{
+  "name": "bpp-todolist",
+  "version": "1.0.0",
+  "description": "BPP To Do List App",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "todolist",
+    "checklist",
+    "collaborate"
+  ],
+  "author": "tioammar",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tioammar"
+  }
+}
