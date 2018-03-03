@@ -1,6 +1,9 @@
 <?
 // error_reporting(E_ERROR);
 require_once "config.php";
+
+session_start();
+
 if(isset($_GET['p'])){
   $page = $_GET['p'];
 } else $page = "main";
