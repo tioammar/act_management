@@ -24,14 +24,14 @@ $userId = $_SESSION['id'];
             <div class='field'>
               <label class='label'>Aktifitas</label>
               <div class='control'>
-                <input type='text' class='input' name='activity'>
+                <input type='text' class='input' name='activity' value='<?php echo $item->activity; ?>'>
               </div>
             </div>
             <!-- field 1.2 -->
             <div class='field'>
               <label class='label'>Batas Waktu</label>
               <div class='control'>
-                <input id='datepicker' type='text' class='input' name='deadline'>
+                <input id='datepicker' type='text' class='input' name='deadline' value='<?php echo $item->deadline; ?>'>
               </div>
             </div>
           </div> 

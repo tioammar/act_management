@@ -49,16 +49,44 @@ class UserController {
     return $auth;
   }
 
+  function fetchArray($rows){
+    $users = array();
+    $i = 0;
+    while($r = $rows->fetch_array()){
+      $user = new User();
+      $user->id = $r['id'];
+      $user->nik = $r['nik'];
+      $user->name = $r['name'];
+      $user->level = $r['level'];
+      $user->subunit = $r['subunit'];
+      $users[$i] = $user;
+      $i++;
+    }
+    return $users;
+  }
+
   function getAllUser(){
     $Q = "SELECT * FROM user";
+    return $this->mysqli->query($Q);
   }
 
   function getUserByUnit($unit){
     $Q = "SELECT * FROM user WHERE `subunit` = '$subunit'";
+    return $this->mysqli->query($Q);
   }
 
   function getUserById($id){
-    $Q = "SELECT * FROM user WHERE `id` = $id";
+    $Q = "SELECT * FROM user WHERE `id` = $id";    
+    $user = new User();
+    $rows = $this->mysqli->query($Q);
+    if($r = $rows->fetch_array()){
+      $user->id = $r['id'];
+      $user->nik = $r['nik'];
+      $user->name = $r['name'];
+      $user->level = $r['level'];
+      $user->subunit = $r['subunit'];
+    }
+    return $user;
   }
 }
 ?>

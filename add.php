@@ -43,16 +43,20 @@ $subunit = $_SESSION['subunit'];
                 <div class='select'>
                   <select name='subunit'>
                   <?php
-                    $values = [
+                    $val = [
                       'Plan & Budget Control', 
                       'Performance & War Room', 
                       'Quality & Change Management',
                       'Revenue Assurance'
                     ];
-                    foreach($values as $value){
-                      echo "
-                      <option value='$value'>$value</option>
-                      ";
+                    if($level == MGR || $level == STF){
+                      $values = $subunit;
+                      echo "<option value='$values' selected>$values</option>";
+                    } else {
+                      $values = $val;
+                      foreach($values as $value){
+                        echo "<option value='$value'>$value</option>";
+                      }
                     }
                   ?>
                   </select>
@@ -68,8 +72,10 @@ $subunit = $_SESSION['subunit'];
                     <?php
                     if($level == ADMIN || $level == SM){
                       $users = $userContoller->getAllUser();
-                    } else {
+                    } else if ($level == MGR){
                       $users = $userController->getUserByUnit($subunit);
+                    } else {
+                      $users = $userController->getUserById($userId);
                     }
                     foreach($users as $user){
                       echo "<option value='$user->id'>$user->name</option>";
