@@ -98,7 +98,7 @@ $userId = $_SESSION['id'];
               </div>
             </div>
             <!-- button -->
-            <input type='submit' class='button is-success' value='Tambahkan'>
+            <input type='submit' class='button is-success' value='Ubah'>
             <a class='button is-danger' href='./?p=detail&id=<?php echo $id; ?>'>Batal</a>
           </div>
           <!-- end of column 2 -->

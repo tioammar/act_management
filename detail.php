@@ -37,12 +37,24 @@ $subunit = $_SESSION['subunit'];
           </span>
           <span>
           <?php
-          echo "<a href='?p=update&id=$id' class='button is-small is-success'>
-            <span class='icon is-small>
-              <i class='fas fa-edit'></i>
-            </span>
-            Ubah
-          </a>"
+          echo " 
+            <a class='button is-link is-small' href='?p=update&id=$id'>
+              <span class='icon is-small'>
+                <i class='fas fa-edit'></i>
+              </span>
+              <span>Ubah</span>
+            </a>";
+          ?>
+          </span>
+          <span>
+          <?php
+          echo " 
+            <a class='button is-danger is-small' href='mod.php?t=delete&id=$id'>
+              <span>Delete</span>
+              <span class='icon is-small'>
+                <i class='fas fa-times'></i>
+              </span>
+            </a>";
           ?>
           </span>
         </h3>

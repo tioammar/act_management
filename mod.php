@@ -58,7 +58,6 @@ if($_GET['t'] == 'stat'){
   if($itemController->updateStatus($stat, $id)){
     header("Location: ./");
   }
-
 }
 
 if($_GET['t'] == 'delete'){
