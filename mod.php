@@ -23,7 +23,17 @@ if($_GET['t'] == 'add'){
   $item->pic = $pic;
 
   $itemController = new ItemController();
-  $itemController->addItem($item);
+  if($itemController->addItem($item)){
+    header("Location: ./");
+  }
+}
+
+if($_GET['t'] == 'delete'){
+  $id = $_GET['id'];
+  $itemController = new ItemController();
+  if($itemController->deleteItem($id)){
+    header("Location: ./");
+  }
 }
 
 if(isset($_GET["login"])){

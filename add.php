@@ -1,6 +1,6 @@
 <?php
 require_once "controller/FormController.php";
-require_once "contoller/UserController.php";
+require_once "controller/UserController.php";
 require_once "config.php";
 
 $controller = new FormController();
@@ -8,6 +8,7 @@ $userController = new UserController();
 
 $level = $_SESSION['level'];
 $subunit = $_SESSION['subunit'];
+$userId = $_SESSION['id'];
 ?>
 <section class='section'>
   <div class='container'>
@@ -71,7 +72,7 @@ $subunit = $_SESSION['subunit'];
                   <select name='pic'>
                     <?php
                     if($level == ADMIN || $level == SM){
-                      $users = $userContoller->getAllUser();
+                      $users = $userController->getAllUser();
                     } else if ($level == MGR){
                       $users = $userController->getUserByUnit($subunit);
                     } else {

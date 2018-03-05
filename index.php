@@ -4,6 +4,12 @@ require_once "config.php";
 
 session_start();
 
+$_SESSION['id'] = 3;
+$_SESSION['name'] = "Aditya Amirullah";
+$_SESSION['nik'] = "920153";
+$_SESSION['level'] = "admin";
+$_SESSION['subunit'] = "Plan & Budget Control";
+
 if(isset($_GET['p'])){
   $page = $_GET['p'];
 } else $page = "main";

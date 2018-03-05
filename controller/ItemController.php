@@ -20,7 +20,7 @@ class ItemController {
       $item->subunit = $r['subunit'];
       $item->pic = $r['pic'];
       $item->deadline = $r['deadline'];
-      $item->status = $r['status'];
+      $item->status = $r['stat'];
       $items[$i] = $item;
       $i++;
     }
@@ -47,7 +47,7 @@ class ItemController {
       $item->subunit = $r['subunit'];
       $item->pic = $r['pic'];
       $item->deadline = $r['deadline'];
-      $item->status = $r['status'];
+      $item->status = $r['stat'];
     }
     return $item;
   }
@@ -60,6 +60,11 @@ class ItemController {
 
   function updateStatus($stat){
     $Q = "UPDATE item SET stat = '$stat'";
+    return $this->mysqli->query($Q);
+  }
+
+  function deleteItem($id){
+    $Q = "DELETE FROM item WHERE `id` = $id";
     return $this->mysqli->query($Q);
   }
 }

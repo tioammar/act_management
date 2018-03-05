@@ -1,43 +1,19 @@
 <?php
 require_once "controller/FormController.php";
 require_once "controller/ItemController.php";
+require_once "controller/UserController.php";
 
 $level = $_SESSION['level'];
 $subunit = $_SESSION['subunit'];
+
+$itemController = new ItemController();
+$items = $itemController->getAllItem();
+
+$userController = new UserController();
+$formController = new FormController();
 ?>
 <section class='section'>
   <div class='container'>
-    <!-- first row -->
-    <!-- <div class='columns'>
-      <div class='column'> -->
-        <!-- User profile here -->
-      <!-- </div>
-      <div class='column is-2'>
-        <div class='card'>
-          <header class='card-header'>
-            <p class='card-header-title red-text'>Open</p>
-          </header>
-          <div class='card-content'>
-            <div class='content'>
-              <h2 class='title is-2'>0</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class='column is-2'>
-        <div class='card'>
-          <header class='card-header'>
-            <p class='card-header-title green-text'>Close</p>
-          </header>
-          <div class='card-content'>
-            <div class='content'>
-              <h2 class='title is-2'>0</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!-- table container -->
     <div class='container'>
       <table class='table is-bordered is-fullwidth'>
         <thead>
@@ -47,36 +23,59 @@ $subunit = $_SESSION['subunit'];
             <th>Sub Unit</th>
             <th>Penanggung Jawab</th>
             <th>Batas Waktu</th>
-            <th>-</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          <!-- item 1 -->
+        <?php
+        $i = 1;
+        foreach($items as $item){
+          $user = $userController->getUserById($item->pic);
+          $u = $user[0];
+          echo "
           <tr>
-            <td>1.</td>
-            <td>Pembuatan Aplikasi Manajemen Aktifitas BPP TR7
+            <td>$i.</td>
+            <td>$item->activity
               <span>
-                <a href='?p=detail'><i class='fas fa-info-circle'></i></a>
+                <a href='?p=detail&id=$item->id'><i class='fas fa-info-circle'></i></a>
               </span>
             </td>
-            <td>Plan & Budget Control</td>
-            <td>Aditya Amirullah</td>
-            <td>6 Mar 2018</th>
-            <td>  
+            <td>$item->subunit</td>
+            <td>$u->name</td>
+            <td>$item->deadline</th>
+            <td>";
+          if($item->status != "open"){
+            echo "  
               <a class='button is-success is-small'>
                 <span class='icon is-small'>
                   <i class='fas fa-check'></i>
                 </span>
                 <span>Close</span>
-              </a>
-              <a class='button is-danger is-outlined is-small'>
+              </a>";
+          } else {
+            echo "  
+              <a class='button is-danger is-small'>
+                <span class='icon is-small'>
+                  <i class='fas fa-times'></i>
+                </span>
+                <span>Open</span>
+              </a>";
+          }
+          if($formController->showDelete($level, $subunit, $item->subunit)){
+            echo " 
+              <a class='button is-danger is-outlined is-small' href='mod.php?t=delete&id=$item->id'>
                 <span>Delete</span>
                 <span class='icon is-small'>
                   <i class='fas fa-times'></i>
                 </span>
-              </a>
+              </a>";
+          }
+          echo "
             </td>
-          </tr>
+          </tr>";
+          $i++;
+        }
+        ?>
         </tbody>
       </table>
     </div>

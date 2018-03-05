@@ -4,13 +4,10 @@ require_once __DIR__."/../config.php";
 
 class UserController {
 
-  private $nik;
-  private $pass;
+  private $mysqli;
 
-  function __construct($nik, $pass){
-    $mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DB_NAME);
-    $this->nik = $nik;
-    $this->pass = $pass;
+  function __construct(){
+    $this->mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DB_NAME);
   } 
 
   function getUser($nik){
@@ -27,18 +24,18 @@ class UserController {
     return $user;
   }
 
-  function auth(){
+  function auth($nik, $pass){
     $auth = NOT_REGISTERED;
     $ldapconfig['host'] = 'merahputih.telkom.co.id';
     $ldapconfig['authrealm'] = 'User Telkom POINT';
-    if($this->nik != "" && $this->pass != ""){
+    if($nik != "" && $pass != ""){
       $ds = @ldap_connect($ldapconfig['host']);
-      $r = @ldap_search( $ds, " ", 'uid=' . $this->nik);
+      $r = @ldap_search( $ds, " ", 'uid=' . $nik);
       if($r){
         $result = @ldap_get_entries( $ds, $r);
         if(isset($result[0])){
           $auth = WRONG_PASSWORD;
-          if(@ldap_bind( $ds, $result[0]['dn'], $this->pass)){
+          if(@ldap_bind( $ds, $result[0]['dn'], $pass)){
             $auth = $result[0]['cn'][0]."#un&mail#".$result[0]['mail'][0];
           }
         }
@@ -67,26 +64,17 @@ class UserController {
 
   function getAllUser(){
     $Q = "SELECT * FROM user";
-    return $this->mysqli->query($Q);
+    return $this->fetchArray($this->mysqli->query($Q));
   }
 
-  function getUserByUnit($unit){
+  function getUserByUnit($subunit){
     $Q = "SELECT * FROM user WHERE `subunit` = '$subunit'";
-    return $this->mysqli->query($Q);
+    return $this->fetchArray($this->mysqli->query($Q));
   }
 
   function getUserById($id){
-    $Q = "SELECT * FROM user WHERE `id` = $id";    
-    $user = new User();
-    $rows = $this->mysqli->query($Q);
-    if($r = $rows->fetch_array()){
-      $user->id = $r['id'];
-      $user->nik = $r['nik'];
-      $user->name = $r['name'];
-      $user->level = $r['level'];
-      $user->subunit = $r['subunit'];
-    }
-    return $user;
+    $Q = "SELECT * FROM user WHERE `id` = $id";
+    return $this->fetchArray($this->mysqli->query($Q));
   }
 }
 ?>

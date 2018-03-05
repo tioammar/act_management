@@ -6,13 +6,14 @@ class ProgressController {
 
   private $mysqli;
 
-  function __constuct(){
+  function __construct(){
     $this->mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DB_NAME);
   }
 
   function getProgress($actid){
     $Q = "SELECT * FROM progress WHERE `activity` = $actid";
-    $progess = array();
+    $progress = array();
+    $rows = $this->mysqli->query($Q);
     $i = 0;
     while($r = $rows->fetch_array()){
       $p = new Progress();
@@ -23,7 +24,7 @@ class ProgressController {
       $progress[$i] = $p;
       $i++;
     }
-    return $items;
+    return $progress;
   }
 
   function addProgress($progress){
