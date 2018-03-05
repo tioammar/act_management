@@ -28,6 +28,39 @@ if($_GET['t'] == 'add'){
   }
 }
 
+if($_GET['t'] == 'update'){
+  
+  $id = $_GET['id'];
+  $deadline = $_POST['deadline'];
+  $subunit = $_POST['subunit'];
+  $activity =  $_POST['activity'];
+  $pic = $_POST['pic'];
+
+  // add to database here
+  $item = new Item();
+  $item->id = $id;
+  $item->deadline = $deadline;
+  $item->subunit = $subunit;
+  $item->activity = $activity;
+  $item->pic = $pic;
+
+  $itemController = new ItemController();
+  if($itemController->updateItem($item)){
+    header("Location: ./");
+  }
+}
+
+if($_GET['t'] == 'stat'){
+  $stat = $_GET['s'];
+  $id = $_GET['id'];
+
+  $itemController = new ItemController();
+  if($itemController->updateStatus($stat, $id)){
+    header("Location: ./");
+  }
+
+}
+
 if($_GET['t'] == 'delete'){
   $id = $_GET['id'];
   $itemController = new ItemController();

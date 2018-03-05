@@ -29,10 +29,20 @@ $subunit = $_SESSION['subunit'];
           <span>
           <?php
           if($item->status != "open"){
-          echo "<p class='button is-small is-success'>Closed</p>";
+          echo "<a href='mod.php?t=stat&s=open&id=$item->id' class='button is-small is-success'>Closed</a>";
           } else {
-          echo "<p class='button is-small is-danger is-outlined'>Open</p>";
+          echo "<a href='mod.php?t=stat&s=close&id=$item->id' class='button is-small is-danger is-outlined'>Open</a>";
           }
+          ?>
+          </span>
+          <span>
+          <?php
+          echo "<a href='?p=update&id=$id' class='button is-small is-success'>
+            <span class='icon is-small>
+              <i class='fas fa-edit'></i>
+            </span>
+            Ubah
+          </a>"
           ?>
           </span>
         </h3>
@@ -54,12 +64,11 @@ $subunit = $_SESSION['subunit'];
           $i = 1;
           foreach($progress as $p){
             $userP = $userController->getUserById($p->pic);
-            $u = $userP[0];
             echo "
             <tr>
               <td>$i</td>
               <td>$p->prgress</td>
-              <td>$u->name</td>
+              <td>".$userP[0]->name."</td>
               <td>";
             // add condition here
             if($formController->showDeleteProgress($level, $subunit, $item->subunit)){

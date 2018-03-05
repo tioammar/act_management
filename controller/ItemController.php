@@ -39,17 +39,8 @@ class ItemController {
 
   function getItem($id){
     $Q = "SELECT * FROM item WHERE id = $id";
-    $rows = $this->mysqli->query($Q);
-    $item = new Item();
-    if($r = $rows->fetch_array()){
-      $item->id = $r['id'];
-      $item->activity = $r['activity'];
-      $item->subunit = $r['subunit'];
-      $item->pic = $r['pic'];
-      $item->deadline = $r['deadline'];
-      $item->status = $r['stat'];
-    }
-    return $item;
+    $items = $this->fetchArray($this->mysqli->query($Q));
+    return $items[0];
   }
 
   function addItem($item){
@@ -58,13 +49,19 @@ class ItemController {
     return $this->mysqli->query($Q);
   }
 
-  function updateStatus($stat){
-    $Q = "UPDATE item SET stat = '$stat'";
+  function updateItem($item){
+    $Q = "UPDATE item SET activity = '$item->activity', subunit = '$item->subunit', 
+            pic = '$item->pic', deadline = '$item->deadline' WHERE id = $item->id";
+    return $this->mysqli->query($Q);
+  }
+
+  function updateStatus($stat, $id){
+    $Q = "UPDATE item SET stat = '$stat' WHERE id = $id";
     return $this->mysqli->query($Q);
   }
 
   function deleteItem($id){
-    $Q = "DELETE FROM item WHERE `id` = $id";
+    $Q = "DELETE FROM item WHERE id = $id";
     return $this->mysqli->query($Q);
   }
 }

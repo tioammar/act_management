@@ -1,9 +1,11 @@
 <?php
 require_once "controller/FormController.php";
-require_once "controller/ItemContoller.php";
+require_once "controller/ItemController.php";
+require_once "controller/UserController.php";
 
 $controller = new FormController();
 $itemController = new ItemController();
+$userController = new UserController();
 
 $id = $_GET['id'];
 $item = $itemController->getItem($id);
@@ -16,7 +18,7 @@ $userId = $_SESSION['id'];
     <h3 class='title is-3'>Tambah Aktifitas</h3>
     <div class='card'>
      <div class='card-content'> 
-      <form action='mod.php?t=add' method='post'>
+      <form action='mod.php?t=update&id=<?php echo $id; ?>' method='post'>
         <div class='columns'>
           <!-- column 1 -->
           <div class='column'>
@@ -77,7 +79,7 @@ $userId = $_SESSION['id'];
                   <select name='pic'>
                     <?php
                     if($level == ADMIN || $level == SM){
-                      $users = $userContoller->getAllUser();
+                      $users = $userController->getAllUser();
                     } else if ($level == MGR){
                       $users = $userController->getUserByUnit($subunit);
                     } else {
@@ -97,7 +99,7 @@ $userId = $_SESSION['id'];
             </div>
             <!-- button -->
             <input type='submit' class='button is-success' value='Tambahkan'>
-            <a class='button is-danger' href='./'>Batal</a>
+            <a class='button is-danger' href='./?p=detail&id=<?php echo $id; ?>'>Batal</a>
           </div>
           <!-- end of column 2 -->
         </div>
