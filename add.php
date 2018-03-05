@@ -1,9 +1,7 @@
 <?php
-require_once "controller/FormController.php";
 require_once "controller/UserController.php";
 require_once "config.php";
 
-$controller = new FormController();
 $userController = new UserController();
 
 $level = $_SESSION['level'];

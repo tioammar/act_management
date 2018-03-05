@@ -8,7 +8,7 @@ $id = $_GET['id'];
 $itemController = new ItemController();
 $progressController = new ProgressController();
 $userController = new UserController();
-$formController = new FormController();
+$formController = new FormController($_SESSION['id']);
 
 $item = $itemController->getItem($id);
 $progress = $progressController->getProgress($item->id);
@@ -28,33 +28,44 @@ $subunit = $_SESSION['subunit'];
           <span class='green-text'><b>Penanggung Jawab</b></span>: <?php echo $user[0]->name; ?> | <span class='red-text'><b>Batas Waktu</b></span>: <?php echo $item->deadline; ?> 
           <span>
           <?php
-          if($item->status != "open"){
-          echo "<a href='mod.php?t=stat&s=open&id=$item->id' class='button is-small is-success'>Closed</a>";
+          if($formController->showStatus($item->subunit, $item->pic)){
+            $linkOpen = "mod.php?t=stat&s=open&id=$item->id";
+            $linkClose = "mod.php?t=stat&s=close&id=$item->id";
           } else {
-          echo "<a href='mod.php?t=stat&s=close&id=$item->id' class='button is-small is-danger is-outlined'>Open</a>";
+            $linkOpen = "#";
+            $linkClose = "#";
+          }
+          if($item->status != "open"){
+          echo "<a href='$linkOpen' class='button is-small is-success'>Closed</a>";
+          } else {
+          echo "<a href='$linkClose' class='button is-small is-danger is-outlined'>Open</a>";
           }
           ?>
           </span>
           <span>
           <?php
-          echo " 
+          if($formController->showUpdate($item->subunit, $item->pic)){
+            echo " 
             <a class='button is-link is-small' href='?p=update&id=$id'>
               <span class='icon is-small'>
                 <i class='fas fa-edit'></i>
               </span>
               <span>Ubah</span>
             </a>";
+          }
           ?>
           </span>
           <span>
           <?php
-          echo " 
+          if($formController->showDelete($item->subunit, $item->pic)){         
+            echo " 
             <a class='button is-danger is-small' href='mod.php?t=delete&id=$id'>
               <span>Delete</span>
               <span class='icon is-small'>
                 <i class='fas fa-times'></i>
               </span>
             </a>";
+          }
           ?>
           </span>
         </h3>
@@ -68,7 +79,7 @@ $subunit = $_SESSION['subunit'];
             <th>No.</th>
             <th>Progress</th>
             <th>Penanggung Jawab</th>
-            <th>-</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -83,7 +94,7 @@ $subunit = $_SESSION['subunit'];
               <td>".$userP[0]->name."</td>
               <td>";
             // add condition here
-            if($formController->showDeleteProgress($level, $subunit, $item->subunit)){
+            if($formController->showDeleteProgress($item->subunit, $item->pic)){
               echo "
                 <a class='button is-danger is-outlined is-small'>
                   <span>Delete</span>
@@ -105,7 +116,7 @@ $subunit = $_SESSION['subunit'];
     <div class='columns'>
       <div class='column is-2 is-offset-10'>
       <?php
-      if($formController->showAddProgress($level, $subunit, $item->subunit)){
+      if($formController->showAddProgress($item->subunit, $item->pic)){
         echo "
           <a class='button is-medium is-link'>
             <span class='icon'>

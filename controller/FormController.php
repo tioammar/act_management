@@ -1,18 +1,15 @@
 <?php
 require_once __DIR__."/../config.php";
-require_once __DIR__."/../model/User.php";
 require_once __DIR__."/../controller/UserController.php";
-require_once __DIR__."/../model/Item.php";
-require_once __DIR__."/../controller/ItemController.php";
-require_once __DIR__."/../model/Progress.php";
-require_once __DIR__."/../controller/ProgressController.php";
 
 class FormController {
 
-  private $mysqli;
+  private $user;
 
-  function __construct(){
-    $this->mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DB_NAME);
+  function __construct($userId){
+    $userController = new UserController();
+    $users = $userController->getUserById($userId);
+    $this->user = $users[0];
   }
 
   /*
@@ -20,20 +17,36 @@ class FormController {
   Check the fuckin config.php to see the rules
   */
 
-  function showUpdate($level, $subUnit, $itemSubUnit){
-    return false;
+  function showDelete($itemSubUnit, $itemPIC){
+    if($this->user->level == STF){
+      if($this->user->subunit ==  $itemSubUnit){
+        if($this->user->id == $itemPIC) return true;
+        else return false;
+      } else return false;
+    } else if($this->user->level == MGR){
+      if($this->user->subunit == $itemSubUnit) return true;
+      else return false;
+    } else return true;
   }
 
-  function showDelete($level, $subUnit, $itemSubUnit){
-    return false;
+  function showUpdate($itemSubUnit, $itemPIC){
+    return $this->showDelete($itemSubUnit, $itemPIC);
   }
 
-  function showAddProgress($level, $subUnit, $itemSubUnit){
-    return false;
+  function showStatus($itemSubUnit, $itemPIC){
+    return $this->showDelete($itemSubUnit, $itemPIC);
   }
 
-  function showDeleteProgress($level, $subUnit, $itemSubUnit){
-    return false;
+  function showAddProgress($itemSubUnit, $itemPIC){
+    if($this->user->level == STF || $this->user->level == MGR){
+      if($this->user->subunit ==  $itemSubUnit){
+        return true;
+      } else return false;
+    } else return true;
+  }
+
+  function showDeleteProgress($itemSubUnit, $itemPIC){
+    return $this->showDelete($itemSubUnit, $itemPIC);
   }
 }
 ?>

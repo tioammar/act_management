@@ -1,9 +1,7 @@
 <?php
-require_once "controller/FormController.php";
 require_once "controller/ItemController.php";
 require_once "controller/UserController.php";
 
-$controller = new FormController();
 $itemController = new ItemController();
 $userController = new UserController();
 

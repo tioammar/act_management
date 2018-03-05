@@ -1,5 +1,4 @@
 <?php
-require_once "controller/FormController.php";
 require_once "controller/ItemController.php";
 require_once "controller/UserController.php";
 
@@ -10,7 +9,6 @@ $itemController = new ItemController();
 $items = $itemController->getAllItem();
 
 $userController = new UserController();
-$formController = new FormController();
 ?>
 <section class='section'>
   <div class='container'>
@@ -59,15 +57,6 @@ $formController = new FormController();
                   <i class='fas fa-times'></i>
                 </span>
                 <span>Open</span>
-              </a>";
-          }
-          if($formController->showDelete($level, $subunit, $item->subunit)){
-            echo " 
-              <a class='button is-danger is-outlined is-small' href='mod.php?t=delete&id=$item->id'>
-                <span>Delete</span>
-                <span class='icon is-small'>
-                  <i class='fas fa-times'></i>
-                </span>
               </a>";
           }
           echo "
