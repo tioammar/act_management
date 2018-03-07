@@ -6,7 +6,7 @@ $level = $_SESSION['level'];
 $subunit = $_SESSION['subunit'];
 
 $itemController = new ItemController();
-$items = $itemController->getAllItem();
+$items = $itemController->getAll();
 
 $userController = new UserController();
 ?>
@@ -28,7 +28,7 @@ $userController = new UserController();
         <?php
         $i = 1;
         foreach($items as $item){
-          $user = $userController->getUserById($item->pic);
+          $user = $userController->getById($item->pic);
           $u = $user[0];
           echo "
           <tr>

@@ -10,7 +10,7 @@ class ProgressController {
     $this->mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DB_NAME);
   }
 
-  function getProgress($actid){
+  function get($actid){
     $Q = "SELECT * FROM progress WHERE `activity` = $actid";
     $progress = array();
     $rows = $this->mysqli->query($Q);
@@ -21,19 +21,20 @@ class ProgressController {
       $p->activity = $r['activity'];
       $p->pic = $r['pic'];
       $p->progress = $r['progress'];
+      $p->date = $r['pdate'];
       $progress[$i] = $p;
       $i++;
     }
     return $progress;
   }
 
-  function addProgress($progress){
-    $Q = "INSERT INTO progress (activity, pic, progress) 
-            VALUES ($progress->activity, $progress->pic, '$progress->progress')";
+  function add($progress){
+    $Q = "INSERT INTO progress (activity, pic, progress, pdate) 
+            VALUES ($progress->activity, $progress->pic, '$progress->progress', '$progress->date')";
     return $this->mysqli->query($Q);
   }
 
-  function deleteProgress($id){
+  function delete($id){
     $Q = "DELETE FROM progress WHERE id = $id";
     return $this->mysqli->query($Q);
   }

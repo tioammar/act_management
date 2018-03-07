@@ -70,11 +70,11 @@ $userId = $_SESSION['id'];
                   <select name='pic'>
                     <?php
                     if($level == ADMIN || $level == SM){
-                      $users = $userController->getAllUser();
+                      $users = $userController->getAll();
                     } else if ($level == MGR){
-                      $users = $userController->getUserByUnit($subunit);
+                      $users = $userController->getByUnit($subunit);
                     } else {
-                      $users = $userController->getUserById($userId);
+                      $users = $userController->getById($userId);
                     }
                     foreach($users as $user){
                       echo "<option value='$user->id'>$user->name</option>";

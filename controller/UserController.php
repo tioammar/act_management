@@ -10,9 +10,9 @@ class UserController {
     $this->mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DB_NAME);
   } 
 
-  function getUser($nik){
+  function get($nik){
     $Q = "SELECT * FROM user WHERE `nik` = '$nik'";
-    $row = $mysqli->query($Q);
+    $row = $this->mysqli->query($Q);
     $user = new User();
     if($r = $row->fetch_array()){
       $user->id = $r['id'];
@@ -46,7 +46,7 @@ class UserController {
     return $auth;
   }
 
-  function fetchArray($rows){
+  function fetch($rows){
     $users = array();
     $i = 0;
     while($r = $rows->fetch_array()){
@@ -62,19 +62,19 @@ class UserController {
     return $users;
   }
 
-  function getAllUser(){
+  function getAll(){
     $Q = "SELECT * FROM user";
-    return $this->fetchArray($this->mysqli->query($Q));
+    return $this->fetch($this->mysqli->query($Q));
   }
 
-  function getUserByUnit($subunit){
+  function getByUnit($subunit){
     $Q = "SELECT * FROM user WHERE `subunit` = '$subunit'";
-    return $this->fetchArray($this->mysqli->query($Q));
+    return $this->fetch($this->mysqli->query($Q));
   }
 
-  function getUserById($id){
+  function getById($id){
     $Q = "SELECT * FROM user WHERE `id` = $id";
-    return $this->fetchArray($this->mysqli->query($Q));
+    return $this->fetch($this->mysqli->query($Q));
   }
 }
 ?>

@@ -8,7 +8,7 @@ class FormController {
 
   function __construct($userId){
     $userController = new UserController();
-    $users = $userController->getUserById($userId);
+    $users = $userController->getById($userId);
     $this->user = $users[0];
   }
 

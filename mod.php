@@ -23,7 +23,7 @@ if($_GET['t'] == 'add'){
   $item->pic = $pic;
 
   $itemController = new ItemController();
-  if($itemController->addItem($item)){
+  if($itemController->add($item)){
     header("Location: ./");
   }
 }
@@ -45,7 +45,7 @@ if($_GET['t'] == 'update'){
   $item->pic = $pic;
 
   $itemController = new ItemController();
-  if($itemController->updateItem($item)){
+  if($itemController->update($item)){
     header("Location: ./");
   }
 }
@@ -55,7 +55,7 @@ if($_GET['t'] == 'stat'){
   $id = $_GET['id'];
 
   $itemController = new ItemController();
-  if($itemController->updateStatus($stat, $id)){
+  if($itemController->stat($stat, $id)){
     header("Location: ./");
   }
 }
@@ -63,41 +63,68 @@ if($_GET['t'] == 'stat'){
 if($_GET['t'] == 'delete'){
   $id = $_GET['id'];
   $itemController = new ItemController();
-  if($itemController->deleteItem($id)){
+  if($itemController->delete($id)){
     header("Location: ./");
   }
 }
 
-if(isset($_GET["login"])){
+if($_GET['t'] == 'progressadd'){
+  $progressController = new ProgressController();
+  $progress = new Progress();
+  $progress->progress = $_POST['progress'];
+  $progress->date = $_POST['pdate'];
+  $progress->pic = $_GET['user'];
+  $progress->activity = $_GET['id'];
+
+  if($progressController->add($progress)){
+    header("Location: ./?p=detail&id=".$_GET['id']);
+  }
+}
+
+if($_GET['t'] == 'progressdelete'){
+  $id = $_GET['id'];
+  $act = $_GET['act'];
+  $progressController = new ProgressController();
+
+  if($progressController->delete($id)){
+    header("Location: ./?p=detail&id=$act");
+  } 
+}
+
+if($_GET['t'] == 'login'){
   $nik = $_POST['nik'];
-  $pass = $_POST['password'];
-  $login = new UserController($nik, $pass);
-  $portal_auth = $login->auth();
+  $pass = $_POST['pass'];
+  $login = new UserController();
+  $portal_auth = $login->auth($nik, $pass);
   if($portal_auth === NOT_REGISTERED){
-    header("Location:./?page=login&status=".NOT_REGISTERED);
+    // header("Location:./?page=login&status=".NOT_REGISTERED);
+    echo "tidak teregistrasi";
   } else if ($portal_auth === WRONG_PASSWORD) {
-    header("Location:./?page=login&status=".WRONG_PASSWORD);
+    // header("Location:./?page=login&status=".WRONG_PASSWORD);
+    echo "password salah";
   } else if ($portal_auth === NOT_CONNECTED){
-    header("Location:./?page=login&status=".NOT_CONNECTED);
+    // header("Location:./?page=login&status=".NOT_CONNECTED);
+    echo "tidak terkonek ke telkom.id";
   } else {
     // create session
-    $user = $login->getUser($nik);
+    $user = $login->get($nik);
     $_SESSION['id'] = $user->id;
     $_SESSION['nik'] = $user->nik;
     $_SESSION['name'] = $user->name;
     $_SESSION['level'] = $user->level;
-    if($user->unit != null){
+    if($user->subunit != null){
       $_SESSION['subunit'] = $user->subunit;
     }
     header("Location:./");
   }
-
-if(isset($_GET["logout"])){
-    unset($_SESSION['nik']);
-    unset($_SESSION['name']);
-    unset($_SESSION['level']);
-    session_destroy();
-    header("Location: ./");
-  }
 } 
+
+if($_GET['t'] == 'logout'){
+  unset($_SESSION['id']);
+  unset($_SESSION['nik']);
+  unset($_SESSION['name']);
+  unset($_SESSION['level']);
+  session_destroy();
+  header("Location: ./");
+}
 ?>

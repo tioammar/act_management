@@ -10,7 +10,7 @@ class ItemController {
     $this->mysqli = new mysqli(HOSTNAME, USERNAME, PASSWORD, DB_NAME);
   }
 
-  function fetchArray($rows){
+  function fetch($rows){
     $items = array();
     $i = 0;
     while($r = $rows->fetch_array()){
@@ -27,40 +27,40 @@ class ItemController {
     return $items;
   }
 
-  function getAllItem(){
+  function getAll(){
     $Q = "SELECT * FROM item";
-    return $this->fetchArray($this->mysqli->query($Q));
+    return $this->fetch($this->mysqli->query($Q));
   }
 
-  function getAllItemByUser($pic){
+  function getAllByUser($pic){
     $Q = "SELECT * FROM item WHERE pic = $pic";
-    return $this->fetchArray($this->mysqli->query($Q));
+    return $this->fetch($this->mysqli->query($Q));
   }
 
-  function getItem($id){
+  function get($id){
     $Q = "SELECT * FROM item WHERE id = $id";
-    $items = $this->fetchArray($this->mysqli->query($Q));
+    $items = $this->fetch($this->mysqli->query($Q));
     return $items[0];
   }
 
-  function addItem($item){
+  function add($item){
     $Q = "INSERT INTO item (activity, subunit, pic, deadline, stat) 
             VALUES ('$item->activity', '$item->subunit', $item->pic, '$item->deadline', 'open')";
     return $this->mysqli->query($Q);
   }
 
-  function updateItem($item){
+  function update($item){
     $Q = "UPDATE item SET activity = '$item->activity', subunit = '$item->subunit', 
             pic = '$item->pic', deadline = '$item->deadline' WHERE id = $item->id";
     return $this->mysqli->query($Q);
   }
 
-  function updateStatus($stat, $id){
+  function stat($stat, $id){
     $Q = "UPDATE item SET stat = '$stat' WHERE id = $id";
     return $this->mysqli->query($Q);
   }
 
-  function deleteItem($id){
+  function delete($id){
     $Q = "DELETE FROM item WHERE id = $id";
     return $this->mysqli->query($Q);
   }

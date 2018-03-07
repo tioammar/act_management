@@ -5,5 +5,6 @@ class Progress {
   public $progress;
   public $pic;
   public $activity;
+  public $date;
 }
 ?>

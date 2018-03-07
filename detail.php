@@ -10,9 +10,9 @@ $progressController = new ProgressController();
 $userController = new UserController();
 $formController = new FormController($_SESSION['id']);
 
-$item = $itemController->getItem($id);
-$progress = $progressController->getProgress($item->id);
-$user = $userController->getUserById($item->pic);
+$item = $itemController->get($id);
+$progress = $progressController->get($item->id);
+$user = $userController->getById($item->pic);
 
 $level = $_SESSION['level'];
 $subunit = $_SESSION['subunit'];
@@ -79,6 +79,7 @@ $subunit = $_SESSION['subunit'];
             <th>No.</th>
             <th>Progress</th>
             <th>Penanggung Jawab</th>
+            <th>Tanggal</th>
             <th></th>
           </tr>
         </thead>
@@ -86,17 +87,18 @@ $subunit = $_SESSION['subunit'];
           <?php
           $i = 1;
           foreach($progress as $p){
-            $userP = $userController->getUserById($p->pic);
+            $userP = $userController->getById($p->pic);
             echo "
             <tr>
-              <td>$i</td>
-              <td>$p->prgress</td>
+              <td>$i.</td>
+              <td>$p->progress</td>
               <td>".$userP[0]->name."</td>
+              <td>$p->date</td>
               <td>";
             // add condition here
             if($formController->showDeleteProgress($item->subunit, $item->pic)){
               echo "
-                <a class='button is-danger is-outlined is-small'>
+                <a href='mod.php?t=progressdelete&id=$p->id&act=$item->id' class='button is-danger is-outlined is-small'>
                   <span>Delete</span>
                   <span class='icon is-small'>
                     <i class='fas fa-times'></i>
@@ -118,7 +120,7 @@ $subunit = $_SESSION['subunit'];
       <?php
       if($formController->showAddProgress($item->subunit, $item->pic)){
         echo "
-          <a class='button is-medium is-link'>
+          <a href='?p=addprogress&id=$id' class='button is-medium is-link'>
             <span class='icon'>
               <i class='fas fa-plus'></i>
             </span>

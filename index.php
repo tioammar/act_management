@@ -4,15 +4,20 @@ require_once "config.php";
 
 session_start();
 
-$_SESSION['id'] = 3;
-$_SESSION['name'] = "Aditya Amirullah";
-$_SESSION['nik'] = "920153";
-$_SESSION['level'] = "admin";
-$_SESSION['subunit'] = "Plan & Budget Control";
+if(!isset($_SESSION['nik'])){
+  $page = "login";
+} else {
+  if(isset($_GET['p'])){
+    $page = $_GET['p'];
+  } else $page = "main";
+}
 
-if(isset($_GET['p'])){
-  $page = $_GET['p'];
-} else $page = "main";
+// $_SESSION['id'] = 3;
+// $_SESSION['name'] = "Aditya Amirullah";
+// $_SESSION['nik'] = "920153";
+// $_SESSION['level'] = "admin";
+// $_SESSION['subunit'] = "Plan & Budget Control";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,7 +47,7 @@ if(isset($_GET['p'])){
       </div>
       <div class="navbar-menu">
         <div class="navbar-end">
-          <a class="navbar-item">
+          <a href='mod.php?t=logout' class="navbar-item">
             <span class="icon">
               <i class="fas fa-sign-out-alt"></i>
             </span>

@@ -6,7 +6,7 @@ $itemController = new ItemController();
 $userController = new UserController();
 
 $id = $_GET['id'];
-$item = $itemController->getItem($id);
+$item = $itemController->get($id);
 $level = $_SESSION['level'];
 $subunit = $_SESSION['subunit'];
 $userId = $_SESSION['id'];
@@ -77,11 +77,11 @@ $userId = $_SESSION['id'];
                   <select name='pic'>
                     <?php
                     if($level == ADMIN || $level == SM){
-                      $users = $userController->getAllUser();
+                      $users = $userController->getAll();
                     } else if ($level == MGR){
-                      $users = $userController->getUserByUnit($subunit);
+                      $users = $userController->getByUnit($subunit);
                     } else {
-                      $users = $userController->getUserById($userId);
+                      $users = $userController->getById($userId);
                     }
                     foreach($users as $user){
                       if($item->pic == $user->id){
