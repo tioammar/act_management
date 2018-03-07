@@ -73,6 +73,9 @@ $subunit = $_SESSION['subunit'];
     </div>
     <!-- table container -->
     <div class='container'>
+    <?php
+    if(count($progress) > 0){
+      echo "
       <table class='table is-bordered is-fullwidth'>
         <thead>
           <tr>
@@ -83,8 +86,7 @@ $subunit = $_SESSION['subunit'];
             <th></th>
           </tr>
         </thead>
-        <tbody>
-          <?php
+        <tbody>";
           $i = 1;
           foreach($progress as $p){
             $userP = $userController->getById($p->pic);
@@ -110,9 +112,18 @@ $subunit = $_SESSION['subunit'];
             </tr>";
             $i++;
           }
-          ?>
+      echo "
         </tbody>
-      </table>
+      </table>";
+    } else {
+      echo "      
+      <div class='columns is-centered'>
+        <div class='column is-half is-narrow'>
+          <p>Belum ada progress untuk aktifitas ini.</p>
+        </div>
+      </div>";
+    }
+    ?>
     </div>
     <!-- end of table -->
     <div class='columns'>

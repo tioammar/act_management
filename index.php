@@ -47,12 +47,17 @@ if(!isset($_SESSION['nik'])){
       </div>
       <div class="navbar-menu">
         <div class="navbar-end">
-          <a href='mod.php?t=logout' class="navbar-item">
-            <span class="icon">
-              <i class="fas fa-sign-out-alt"></i>
+          <?php
+          if(isset($_SESSION['nik'])){
+          echo "
+          <a href='mod.php?t=logout' class='navbar-item'>
+            <span class='icon'>
+              <i class='fas fa-sign-out-alt'></i>
             </span>
             <span>Keluar</span>
-          </a>
+          </a>";
+          }
+          ?>
         </div>
       </div>
     </navbar>

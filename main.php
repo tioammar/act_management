@@ -13,6 +13,9 @@ $userController = new UserController();
 <section class='section'>
   <div class='container'>
     <div class='container'>
+    <?php
+    if(count($items) > 0){
+    echo "
       <table class='table is-bordered is-fullwidth'>
         <thead>
           <tr>
@@ -24,8 +27,7 @@ $userController = new UserController();
             <th>Status</th>
           </tr>
         </thead>
-        <tbody>
-        <?php
+        <tbody>";
         $i = 1;
         foreach($items as $item){
           $user = $userController->getById($item->pic);
@@ -64,9 +66,18 @@ $userController = new UserController();
           </tr>";
           $i++;
         }
-        ?>
+      echo "
         </tbody>
-      </table>
+      </table>";
+    } else {
+      echo "
+      <div class='columns is-centered'>
+        <div class='column is-narrow is-half'>
+          <p>Belum ada aktifitas saat ini. Good Work!</p>
+        </div>
+      </div>";
+    }
+    ?>
     </div>
     <!-- end of table -->
     <div class='columns'>

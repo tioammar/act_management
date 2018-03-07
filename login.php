@@ -3,7 +3,7 @@
 ?>
 <section class='section'>
   <div class='container'>
-    <div class='columns'>
+    <div class='columns is-centered'>
       <div class='column is-6 is-clearfix'>
         <div class='card'>
           <div class='card-content'>
