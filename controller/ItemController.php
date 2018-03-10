@@ -21,6 +21,7 @@ class ItemController {
       $item->pic = $r['pic'];
       $item->deadline = $r['deadline'];
       $item->status = $r['stat'];
+      $item->note = $r['note'];
       $items[$i] = $item;
       $i++;
     }
@@ -28,12 +29,12 @@ class ItemController {
   }
 
   function getAll(){
-    $Q = "SELECT * FROM item";
+    $Q = "SELECT * FROM `item` ORDER BY STR_TO_DATE(deadline, '%d %M %Y')";
     return $this->fetch($this->mysqli->query($Q));
   }
 
   function getAllByUser($pic){
-    $Q = "SELECT * FROM item WHERE pic = $pic";
+    $Q = "SELECT * FROM item WHERE pic = $pic ORDER BY STR_TO_DATE(deadline, '%d %M %Y')";
     return $this->fetch($this->mysqli->query($Q));
   }
 
@@ -44,14 +45,14 @@ class ItemController {
   }
 
   function add($item){
-    $Q = "INSERT INTO item (activity, subunit, pic, deadline, stat) 
-            VALUES ('$item->activity', '$item->subunit', $item->pic, '$item->deadline', 'open')";
+    $Q = "INSERT INTO item (activity, subunit, pic, deadline, stat, note) 
+            VALUES ('$item->activity', '$item->subunit', $item->pic, '$item->deadline', 'open', '$item->note')";
     return $this->mysqli->query($Q);
   }
 
   function update($item){
     $Q = "UPDATE item SET activity = '$item->activity', subunit = '$item->subunit', 
-            pic = '$item->pic', deadline = '$item->deadline' WHERE id = $item->id";
+            pic = '$item->pic', deadline = '$item->deadline', note = '$item->note' WHERE id = $item->id";
     return $this->mysqli->query($Q);
   }
 

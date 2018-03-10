@@ -60,7 +60,7 @@ $subunit = $_SESSION['subunit'];
           if($formController->showDelete($item->subunit, $item->pic)){         
             echo " 
             <a class='button is-danger is-small' href='mod.php?t=delete&id=$id'>
-              <span>Delete</span>
+              <span>Hapus</span>
               <span class='icon is-small'>
                 <i class='fas fa-times'></i>
               </span>
@@ -119,7 +119,7 @@ $subunit = $_SESSION['subunit'];
       echo "      
       <div class='columns is-centered'>
         <div class='column is-half is-narrow'>
-          <p>Belum ada progress untuk aktifitas ini.</p>
+          <p>Belum ada progres untuk aktifitas ini.</p>
         </div>
       </div>";
     }

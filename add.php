@@ -37,16 +37,18 @@ $userId = $_SESSION['id'];
           <div class='column'>
             <!-- field 2.1 -->
             <div class='field'>
-              <label class='label'>Sub Unit</label>
+              <label class='label'>Unit / Sub Unit</label>
               <div class='control'>
                 <div class='select'>
                   <select name='subunit'>
                   <?php
                     $val = [
+                      'Business Planning & Performance',
                       'Plan & Budget Control', 
                       'Performance & War Room', 
                       'Quality & Change Management',
-                      'Revenue Assurance'
+                      'Revenue Assurance',
+                      '-',
                     ];
                     if($level == MGR || $level == STF){
                       $values = $subunit;

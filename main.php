@@ -21,10 +21,11 @@ $userController = new UserController();
           <tr>
             <th>No.</th>
             <th>Aktifitas</th>
-            <th>Sub Unit</th>
+            <th>Unit / Sub Unit</th>
             <th>Penanggung Jawab</th>
             <th>Batas Waktu</th>
             <th>Status</th>
+            <th>Catatan</th>
           </tr>
         </thead>
         <tbody>";
@@ -63,6 +64,7 @@ $userController = new UserController();
           }
           echo "
             </td>
+            <td>$item->note</td>
           </tr>";
           $i++;
         }

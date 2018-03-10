@@ -19,12 +19,16 @@ class FormController {
 
   function showDelete($itemSubUnit, $itemPIC){
     if($this->user->level == STF){
-      if($this->user->subunit ==  $itemSubUnit){
+      if($this->user->subunit ==  $itemSubUnit 
+      || $itemSubUnit == '-' 
+      || $itemSubUnit == 'Business Planning & Performance'){
         if($this->user->id == $itemPIC) return true;
         else return false;
       } else return false;
     } else if($this->user->level == MGR){
-      if($this->user->subunit == $itemSubUnit) return true;
+      if($this->user->subunit ==  $itemSubUnit 
+      || $itemSubUnit == '-' 
+      || $itemSubUnit == 'Business Planning & Performance') return true;
       else return false;
     } else return true;
   }

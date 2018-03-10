@@ -7,5 +7,6 @@ class Item {
   public $pic;
   public $deadline;
   public $status;
+  public $note;
 }
 ?>
