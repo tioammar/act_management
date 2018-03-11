@@ -12,7 +12,6 @@ $formController = new FormController($_SESSION['id']);
 
 $item = $itemController->get($id);
 $progress = $progressController->get($item->id);
-$user = $userController->getById($item->pic);
 
 $level = $_SESSION['level'];
 $subunit = $_SESSION['subunit'];
@@ -25,7 +24,15 @@ $subunit = $_SESSION['subunit'];
       <div class='column'>
         <h3 class='title is-3'><?php echo $item->activity; ?></h3>
         <h3 class='subtitle is-5'>
-          <span class='green-text'><b>Penanggung Jawab</b></span>: <?php echo $user[0]->name; ?> | <span class='red-text'><b>Batas Waktu</b></span>: <?php echo $item->deadline; ?> 
+          <span class='green-text'><b>Penanggung Jawab</b></span>: 
+          <?php 
+          foreach($item->pic as $p){
+            $user = $userController->getById($p);
+            $u = $user[0];
+            echo "<li>$u->name</li>";
+          }
+          ?>
+          <span class='red-text'><b>Batas Waktu</b></span>: <?php echo $item->deadline; ?>
           <span>
           <?php
           if($formController->showStatus($item->subunit, $item->pic)){
@@ -81,7 +88,7 @@ $subunit = $_SESSION['subunit'];
           <tr>
             <th>No.</th>
             <th>Progress</th>
-            <th>Penanggung Jawab</th>
+            <th>PIC</th>
             <th>Tanggal</th>
             <th></th>
           </tr>

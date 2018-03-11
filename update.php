@@ -34,6 +34,11 @@ $userId = $_SESSION['id'];
                 <input id='datepicker' type='text' class='input' name='deadline' value='<?php echo $item->deadline; ?>'>
               </div>
             </div>
+            <div class="field">
+              <div class="control">
+                <textarea class="textarea is-primary" name="note" type="text"><?php echo $item->note; ?></textarea>
+              </div>
+            </div>
           </div> 
           <!-- end of column 1 -->
           <!-- column 2 -->
@@ -75,26 +80,27 @@ $userId = $_SESSION['id'];
             <div class='field'>
               <label class='label'>Penanggung Jawab</label>
               <div class='control'>
-              <div class='select'>
-                  <select name='pic'>
-                    <?php
-                    if($level == ADMIN || $level == SM){
-                      $users = $userController->getAll();
-                    } else if ($level == MGR){
-                      $users = $userController->getByUnit($subunit);
-                    } else {
-                      $users = $userController->getById($userId);
-                    }
-                    foreach($users as $user){
-                      if($item->pic == $user->id){
-                        echo "<option value='$user->id' selected>$user->name</option>";
-                      } else {
-                      echo "<option value='$user->id'>$user->name</option>";
-                      }
-                    }
-                    ?>
-                  </select>
-                </div>
+                <?php
+                if($level == ADMIN || $level == SM){
+                  $users = $userController->getAll();
+                } else if ($level == MGR){
+                  $users = $userController->getByUnit($subunit);
+                } else {
+                  $users = $userController->getById($userId);
+                }
+                foreach($users as $user){
+                  echo "
+                    <label class='checkbox'>";
+                  if(in_array($user->id, $item->pic)){
+                    echo "<input type='checkbox' value='$user->id' name='pic[]' checked>
+                    $user->name";
+                  } else {
+                    echo "<input type='checkbox' value='$user->id' name='pic[]'>
+                    $user->name";                
+                  }
+                  echo "</label></br>";
+                }
+                ?>
               </div>
             </div>
             <!-- button -->

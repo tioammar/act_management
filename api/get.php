@@ -16,8 +16,9 @@ function getUser($item){
   return $user_data;
 }
 
-function make($item){
+function make($item, $i){
   $data = array(
+    "no" => $i+1,
     "id" => $item->id,
     "activity" => $item->activity,
     "subunit" => $item->subunit,
@@ -35,7 +36,7 @@ function makeAll($items){
   $i = 0;
 
   foreach($items as $item){
-    $data = make($item);
+    $data = make($item, $i);
     $items_data[$i] = $data;
     $i++;
   }
@@ -47,6 +48,7 @@ function makeProgress($progresses){
   $i = 0;
   foreach($progresses as $progress){
     $data = array(
+      "no" => $i+1,
       "id" => $progress->id,
       "progress" => $progress->progress,
       "pic" => getUser($progress),
@@ -75,7 +77,7 @@ if($_GET['p'] == "sin"){
   $activity = $itemController->get($id);
 
   $json = array(
-    "activity" => make($activity),
+    "activity" => make($activity, 0),
     "progress" => makeProgress($progress)
   );
   echo json_encode($json);

@@ -21,7 +21,7 @@ $userId = $_SESSION['id'];
             </div>
             <div class='column'>
               <div class='field'>
-                <label class='label'>Batas Waktu</label>
+                <label class='label'>Waktu</label>
                 <div class='control'>
                   <input id='datepicker' type='text' class='input' name='pdate'>
                 </div>

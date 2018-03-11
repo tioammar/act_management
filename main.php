@@ -31,8 +31,6 @@ $userController = new UserController();
         <tbody>";
         $i = 1;
         foreach($items as $item){
-          $user = $userController->getById($item->pic);
-          $u = $user[0];
           echo "
           <tr>
             <td>$i.</td>
@@ -42,7 +40,15 @@ $userController = new UserController();
               </span>
             </td>
             <td>$item->subunit</td>
-            <td>$u->name</td>
+            <td>";
+            $pic = $userController->getByAct($item->id);
+            foreach($pic as $p){
+              $users = $userController->getById($p);
+              $user = $users[0];
+              echo "
+              <li>$user->name</li>";
+            }
+            echo "</td>
             <td>$item->deadline</th>
             <td>";
           if($item->status != "open"){

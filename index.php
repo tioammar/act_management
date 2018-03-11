@@ -4,6 +4,13 @@ require_once "config.php";
 
 session_start();
 
+// $_SESSION['id'] = 4;
+// // $_SESSION['name'] = "Aditya Amirullah";
+// $_SESSION['nik'] = "920153";
+// $_SESSION['level'] = "mgr";
+// $_SESSION['subunit'] = "Plan & Budget Control";
+
+
 if(!isset($_SESSION['nik'])){
   $page = "login";
 } else {
@@ -11,12 +18,6 @@ if(!isset($_SESSION['nik'])){
     $page = $_GET['p'];
   } else $page = "main";
 }
-
-// $_SESSION['id'] = 3;
-// $_SESSION['name'] = "Aditya Amirullah";
-// $_SESSION['nik'] = "920153";
-// $_SESSION['level'] = "admin";
-// $_SESSION['subunit'] = "Plan & Budget Control";
 
 ?>
 <!DOCTYPE html>

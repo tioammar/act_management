@@ -31,6 +31,11 @@ $userId = $_SESSION['id'];
                 <input id='datepicker' type='text' class='input' name='deadline'>
               </div>
             </div>
+            <div class="field">
+              <div class="control">
+                <textarea class="textarea is-primary" name="note" type="text" placeholder="Catatan"></textarea>
+              </div>
+            </div>
           </div> 
           <!-- end of column 1 -->
           <!-- column 2 -->
@@ -68,22 +73,22 @@ $userId = $_SESSION['id'];
             <div class='field'>
               <label class='label'>Penanggung Jawab</label>
               <div class='control'>
-              <div class='select'>
-                  <select name='pic'>
-                    <?php
-                    if($level == ADMIN || $level == SM){
-                      $users = $userController->getAll();
-                    } else if ($level == MGR){
-                      $users = $userController->getByUnit($subunit);
-                    } else {
-                      $users = $userController->getById($userId);
-                    }
-                    foreach($users as $user){
-                      echo "<option value='$user->id'>$user->name</option>";
-                    }
-                    ?>
-                  </select>
-                </div>
+                <?php
+                if($level == ADMIN || $level == SM){
+                  $users = $userController->getAll();
+                } else if ($level == MGR){
+                  $users = $userController->getByUnit($subunit);
+                } else {
+                  $users = $userController->getById($userId);
+                }
+                foreach($users as $user){
+                  echo "
+                    <label class='checkbox'>
+                      <input type='checkbox' value='$user->id' name='pic[]'>
+                      $user->name
+                    </label></br>";
+                }
+                ?>
               </div>
             </div>
             <!-- button -->

@@ -22,14 +22,15 @@ class FormController {
       if($this->user->subunit ==  $itemSubUnit 
       || $itemSubUnit == '-' 
       || $itemSubUnit == 'Business Planning & Performance'){
-        if($this->user->id == $itemPIC) return true;
+        if(in_array($this->user->id, $itemPIC)) return true;
         else return false;
       } else return false;
     } else if($this->user->level == MGR){
-      if($this->user->subunit ==  $itemSubUnit 
-      || $itemSubUnit == '-' 
-      || $itemSubUnit == 'Business Planning & Performance') return true;
-      else return false;
+      if($this->user->subunit ==  $itemSubUnit) return true;
+      else if($itemSubUnit == '-' || $itemSubUnit == 'Business Planning & Performance'){
+        if(in_array($this->user->id, $itemPIC)) return true;
+        else false;
+      } else return false;
     } else return true;
   }
 
@@ -45,6 +46,9 @@ class FormController {
     if($this->user->level == STF || $this->user->level == MGR){
       if($this->user->subunit ==  $itemSubUnit){
         return true;
+      } else if($itemSubUnit == '-' || $itemSubUnit == 'Business Planning & Performance') {
+        if(in_array($this->user->id, $itemPIC)) return true;
+        else return false;
       } else return false;
     } else return true;
   }

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__."/../model/Item.php";
 require_once __DIR__."/../config.php";
+require_once "UserController.php";
 
 class ItemController {
   
@@ -18,7 +19,8 @@ class ItemController {
       $item->id = $r['id'];
       $item->activity = $r['activity'];
       $item->subunit = $r['subunit'];
-      $item->pic = $r['pic'];
+      $userController = new UserController();
+      $item->pic = $userController->getByAct($item->id);
       $item->deadline = $r['deadline'];
       $item->status = $r['stat'];
       $item->note = $r['note'];
@@ -45,15 +47,14 @@ class ItemController {
   }
 
   function add($item){
-    $Q = "INSERT INTO item (activity, subunit, pic, deadline, stat, note) 
-            VALUES ('$item->activity', '$item->subunit', $item->pic, '$item->deadline', 'open', '$item->note')";
-    return $this->mysqli->query($Q);
+    $Q = "INSERT INTO item (activity, subunit, deadline, stat, note) 
+            VALUES ('$item->activity', '$item->subunit', '$item->deadline', 'open', '$item->note')";
+    return $this->mysqli->query($Q) && $this->addPIC($this->mysqli->insert_id, $item->pic);
   }
 
   function update($item){
-    $Q = "UPDATE item SET activity = '$item->activity', subunit = '$item->subunit', 
-            pic = '$item->pic', deadline = '$item->deadline', note = '$item->note' WHERE id = $item->id";
-    return $this->mysqli->query($Q);
+    $Q = "UPDATE item SET activity = '$item->activity', subunit = '$item->subunit', deadline = '$item->deadline', note = '$item->note' WHERE id = $item->id";
+    return $this->mysqli->query($Q) && $this->updatePIC($item->id, $item->pic);
   }
 
   function stat($stat, $id){
@@ -63,7 +64,29 @@ class ItemController {
 
   function delete($id){
     $Q = "DELETE FROM item WHERE id = $id";
-    return $this->mysqli->query($Q);
+    $_Q = "DELETE FROM pic WHERE act = $id";
+    $__Q = "DELETE FROM progress WHERE activity = $id";
+    return $this->mysqli->query($Q) && $this->mysqli->query($_Q) && $this->mysqli->query($__Q);
+  }
+
+  function addPIC($act, $pic){
+    foreach($pic as $p){
+      $Q = "INSERT INTO pic (act, pic)
+              VALUES ($act, $p)";
+      $this->mysqli->query($Q);
+    }
+    return true;
+  }
+
+  function updatePIC($id, $pic){
+    $Q = "DELETE FROM pic WHERE act = $id";
+    $this->mysqli->query($Q);
+    foreach($pic as $p){
+      $_Q = "INSERT INTO pic (act, pic)
+                VALUES ($id, $p)";
+      $this->mysqli->query($_Q);
+    }
+    return true;
   }
 }
 ?>

@@ -14,6 +14,7 @@ if($_GET['t'] == 'add'){
   $subunit = $_POST['subunit'];
   $activity =  $_POST['activity'];
   $pic = $_POST['pic'];
+  $note = $_POST['note'];
 
   // add to database here
   $item = new Item();
@@ -21,7 +22,7 @@ if($_GET['t'] == 'add'){
   $item->subunit = $subunit;
   $item->activity = $activity;
   $item->pic = $pic;
-  $item->note = "-";
+  $item->note = $note;
 
   $itemController = new ItemController();
   if($itemController->add($item)){
@@ -36,6 +37,7 @@ if($_GET['t'] == 'update'){
   $subunit = $_POST['subunit'];
   $activity =  $_POST['activity'];
   $pic = $_POST['pic'];
+  $note = $_POST['note'];
 
   // add to database here
   $item = new Item();
@@ -44,7 +46,7 @@ if($_GET['t'] == 'update'){
   $item->subunit = $subunit;
   $item->activity = $activity;
   $item->pic = $pic;
-  $item->note = "-";
+  $item->note = $note;
 
   $itemController = new ItemController();
   if($itemController->update($item)){

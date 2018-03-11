@@ -62,6 +62,16 @@ class UserController {
     return $users;
   }
 
+  function fetchID($rows){
+    $ids = array();
+    $i = 0;
+    while($r = $rows->fetch_array()){
+      $ids[$i] = $r['pic'];
+      $i++;
+    }
+    return $ids;
+  }
+
   function getAll(){
     $Q = "SELECT * FROM user";
     return $this->fetch($this->mysqli->query($Q));
@@ -75,6 +85,11 @@ class UserController {
   function getById($id){
     $Q = "SELECT * FROM user WHERE `id` = $id";
     return $this->fetch($this->mysqli->query($Q));
+  }
+
+  function getByAct($act_id){
+    $Q = "SELECT * FROM pic WHERE `act` = $act_id";
+    return $this->fetchID($this->mysqli->query($Q));
   }
 }
 ?>
