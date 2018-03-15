@@ -5,20 +5,32 @@ require_once __DIR__."/../controller/ProgressController.php";
 
 function getUser($item){
   $userController = new UserController();
-  $user = $userController->getById($item->pic);
-  $user_data = array(
-    "id" => $user[0]->id,
-    "nik" => $user[0]->nik,
-    "name" => $user[0]->name,
-    "level" => $user[0]->level,
-    "subunit" => $user[0]->subunit
-  );
+  $pic = $userController->getByAct($item->id);
+  $user_data = array();
+  $i = 0;
+  foreach($pic as $p){
+    $u = $userController->getById($p);
+    $user = $u[0];
+    $data = makeUser($user);
+    $user_data[$i] = $data;
+    $i++;
+  }
   return $user_data;
+}
+
+function makeUser($user){
+  $data = array(
+    "id" => $user->id,
+    "nik" => $user->nik,
+    "name" => $user->name,
+    "level" => $user->level,
+    "subunit" => $user->subunit
+  );
+  return $data;
 }
 
 function make($item, $i){
   $data = array(
-    "no" => $i+1,
     "id" => $item->id,
     "activity" => $item->activity,
     "subunit" => $item->subunit,
@@ -44,21 +56,23 @@ function makeAll($items){
 }
 
 function makeProgress($progresses){
+  $userController = new UserController();
   $progress_data = array();
   $i = 0;
   foreach($progresses as $progress){
+    $user = $userController->getById($progress->pic);
+    $u = $user[0];
     $data = array(
-      "no" => $i+1,
       "id" => $progress->id,
       "progress" => $progress->progress,
-      "pic" => getUser($progress),
+      "pic" => makeUser($u),
       "activity" => $progress->activity,
       "pdate" => $progress->date
     );
     $progress_data[$i] = $data;
     $i++;
-    return $progress_data;
   }
+  return $progress_data;
 }
 
 if($_GET['p'] == "all"){
@@ -81,5 +95,17 @@ if($_GET['p'] == "sin"){
     "progress" => makeProgress($progress)
   );
   echo json_encode($json);
+}
+
+if($_GET['p'] == "allusers"){
+  $userController = new UserController();
+  $users = $userController->getAll();
+  $data = array();
+  $i = 0;
+  foreach($users as $user){
+    $data[$i] = makeUser($user);
+    $i++;
+  }
+  echo json_encode(array("users" => $data));
 }
 ?>
